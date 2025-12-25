@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SaaS Hero Section</title>
+    <style>
+      :root {
+        --bg: #fafafa;
+        --text: #0f172a;
+        --muted: #64748b;
+        --primary: #6366f1; /* indigo */
+        --accent: #22c55e; /* green */
+        --capsule-bg: linear-gradient(135deg, #6366f1, #22c55e);
+        --color-1: #7b3be9;
+        --color-2: #b7c0ee;
+        --color-3: #ebf2fa;
+        --color-4: #000505;
+        --color-5: #32e875;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
+          Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 24px;
+        text-align: center;
+        background: linear-gradient(to bottom, #fff 50%, var(--color-3) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero > div:last-child {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+      }
+
+      .wavy-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.15;
+      }
+
+      .wavy-line {
+        stroke: #666;
+        fill: none;
+        stroke-width: 2.5;
+        filter: url(#rough);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .wavy-lines g {
+        transform-origin: center;
+      }
+
+      .wavy-line-1 {
+        animation: waveMove1 15s ease-in-out infinite;
+      }
+
+      .wavy-line-2 {
+        animation: waveMove2 18s ease-in-out infinite;
+      }
+
+      .wavy-line-3 {
+        animation: waveMove3 20s ease-in-out infinite;
+      }
+
+      @keyframes waveMove1 {
+        0% {
+          transform: translateX(0px) translateY(0px);
+        }
+        33% {
+          transform: translateX(50px) translateY(-30px);
+        }
+        66% {
+          transform: translateX(-30px) translateY(20px);
+        }
+        100% {
+          transform: translateX(0px) translateY(0px);
+        }
+      }
+
+      @keyframes waveMove2 {
+        0% {
+          transform: translateX(0px) translateY(0px);
+        }
+        33% {
+          transform: translateX(-60px) translateY(25px);
+        }
+        66% {
+          transform: translateX(40px) translateY(-15px);
+        }
+        100% {
+          transform: translateX(0px) translateY(0px);
+        }
+      }
+
+      @keyframes waveMove3 {
+        0% {
+          transform: translateX(0px) translateY(0px);
+        }
+        33% {
+          transform: translateX(35px) translateY(-20px);
+        }
+        66% {
+          transform: translateX(-25px) translateY(15px);
+        }
+        100% {
+          transform: translateX(0px) translateY(0px);
+        }
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 5vw, 3.8rem);
+        font-weight: 600;
+        line-height: 1.15;
+        max-width: 960px;
+        margin: 0 auto;
+        letter-spacing: -0.02em;
+        color: var(--color-4);
+      }
+
+      .highlight {
+        color: var(--color-5);
+        text-shadow: 1px 1px 0px rgba(0, 100, 0, 0.8);
+      }
+
+      .highlight-secondary {
+        color: var(--color-4);
+        position: relative;
+      }
+
+      .highlight-secondary::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--color-5);
+        z-index: -1;
+      }
+
+      .capsule-wrapper {
+        display: inline-block;
+        position: relative;
+        height: 80px;
+        min-width: 300px;
+        vertical-align: middle;
+        overflow: hidden;
+        border-radius: 100px;
+        border: 2px solid var(--color-5);
+        background: var(--color-5);
+        box-shadow: rgba(0, 0, 0, 0.12) 0px -23px 25px 0px inset,
+          rgba(0, 0, 0, 0.1) 0px -36px 30px 0px inset,
+          rgba(0, 0, 0, 0.07) 0px -79px 40px 0px inset,
+          rgba(0, 0, 0, 0.04) 0px 2px 1px, rgba(0, 0, 0, 0.065) 0px 4px 2px,
+          rgba(0, 0, 0, 0.065) 0px 8px 4px, rgba(0, 0, 0, 0.065) 0px 16px 8px,
+          rgba(0, 0, 0, 0.065) 0px 32px 16px;
+      }
+
+      .capsule {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 10px;
+        font-size: 0.9em;
+        font-weight: 500;
+        white-space: nowrap;
+        position: absolute;
+        background: transparent;
+        color: white;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(50%);
+        opacity: 0;
+        transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.45s ease;
+      }
+
+      .capsule.active {
+        transform: translateX(-50%) translateY(-50%);
+        opacity: 1;
+      }
+
+      .capsule.exit {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+      }
+
+      .subtext {
+        margin-top: 24px;
+        font-size: 1.3rem;
+        color: var(--muted);
+        max-width: 620px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.8rem;
+      }
+
+      .cta {
+        margin-top: 36px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      /* CSS */
+      .cta button {
+        padding: 12px 26px;
+        border: 0;
+        font-size: 16px;
+        transition: all 150ms ease-in-out;
+
+        border-radius: 8px;
+        font-weight: 600;
+
+        color: #fff;
+
+        box-shadow: #6334b5 0 0 0 1px,
+          rgba(255, 255, 255, 0.3) 0 1px 1px 0 inset,
+          rgba(0, 0, 0, 0.5) 0 1px 2px 0, rgba(0, 0, 0, 0.4) 0 -1px 2px 0 inset,
+          0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        background: linear-gradient(
+            rgba(255, 255, 255, 0.05) 0,
+            transparent 100%
+          ),
+          linear-gradient(0deg, #7b3be9 0%, #884fec 100%);
+      }
+
+      .cta button:hover {
+        filter: brightness(1.1);
+      }
+
+      .cta button:active {
+        background: linear-gradient(rgba(0, 0, 0, 0.05) 0, transparent 100%),
+          linear-gradient(180deg, #7b3be9 0%, #884fec 100%);
+        box-shadow: #6334b5 0 0 0 1px,
+          rgba(255, 255, 255, 0.1) 0 1px 1px 0 inset,
+          rgba(0, 0, 0, 0.5) 0 1px 2px 0, rgba(0, 0, 0, 0.5) 0 1px 2px 0 inset,
+          0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .cta button:hover {
+        filter: brightness(1.1);
+      }
+
+      .cta button:active {
+        transform: scale(0.95);
+      }
+
+      .cta button.secondary {
+        background: transparent;
+        color: var(--color-1);
+        border: 2px solid var(--color-2);
+        box-shadow: none;
+      }
+
+      .cta button:hover {
+        transform: translateY(-1px);
+      }
+
+      .video-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .video-modal.active {
+        display: flex;
+        opacity: 1;
+      }
+
+      .video-modal-content {
+        position: relative;
+        width: 90%;
+        max-width: 900px;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      .video-modal video {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .video-modal-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1001;
+        transition: background 0.2s ease;
+      }
+
+      .video-modal-close:hover {
+        background: rgba(255, 255, 255, 1);
+      }
+
+      .video-modal-close::before {
+        content: "×";
+        line-height: 1;
+      }
+
+      .floating-icons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+        overflow: visible;
+      }
+
+      .floating-icon {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        background: white;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        animation: float 6s ease-in-out infinite;
+        opacity: 0.8;
+      }
+
+      .floating-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .floating-icon:nth-child(1) {
+        top: 15%;
+        left: 20%;
+        animation-delay: 0s;
+        animation-duration: 7s;
+      }
+
+      .floating-icon:nth-child(2) {
+        top: 25%;
+        right: 20%;
+        animation-delay: 1s;
+        animation-duration: 8s;
+      }
+
+      .floating-icon:nth-child(3) {
+        top: 50%;
+        left: 20%;
+        animation-delay: 2s;
+        animation-duration: 6.5s;
+      }
+
+      .floating-icon:nth-child(4) {
+        top: 60%;
+        right: 20%;
+        animation-delay: 1.5s;
+        animation-duration: 7.5s;
+      }
+
+      .floating-icon:nth-child(5) {
+        top: 75%;
+        left: 30%;
+        animation-delay: 0.5s;
+        animation-duration: 8.5s;
+      }
+
+      .floating-icon:nth-child(6) {
+        top: 35%;
+        right: 10%;
+        left: auto;
+        animation-delay: 2.5s;
+        animation-duration: 6s;
+      }
+
+      .floating-icon:nth-child(7) {
+        top: 10%;
+        left: 40%;
+        animation-delay: 3s;
+        animation-duration: 7.5s;
+      }
+
+      .floating-icon:nth-child(8) {
+        top: 70%;
+        right: 30%;
+        animation-delay: 3.5s;
+        animation-duration: 8s;
+      }
+
+      .floating-icon:nth-child(9) {
+        top: 40%;
+        left: 10%;
+        animation-delay: 4s;
+        animation-duration: 6.5s;
+      }
+
+      .floating-icon:nth-child(10) {
+        top: 80%;
+        right: 20%;
+        animation-delay: 4.5s;
+        animation-duration: 7s;
+      }
+
+      .floating-icon:nth-child(11) {
+        top: 20%;
+        right: 35%;
+        animation-delay: 5s;
+        animation-duration: 8.5s;
+      }
+
+      .floating-icon:nth-child(12) {
+        top: 65%;
+        left: 3%;
+        animation-delay: 5.5s;
+        animation-duration: 6s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-20px) translateX(10px) rotate(2deg);
+        }
+        50% {
+          transform: translateY(-10px) translateX(-15px) rotate(-2deg);
+        }
+        75% {
+          transform: translateY(-25px) translateX(5px) rotate(1deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          padding: 0 2rem;
+        }
+
+        .hero h1 {
+          font-size: 2.4rem;
+        }
+
+        .capsule-wrapper {
+          height: 60px;
+          min-width: 200px;
+        }
+        .subtext {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <svg
+        class="wavy-lines"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1920 1080"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <defs>
+          <filter id="rough">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.04"
+              numOctaves="5"
+              result="noise"
+            />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+          </filter>
+        </defs>
+        <g class="wavy-line-1">
+          <path
+            class="wavy-line"
+            d="M-100,200 Q200,150 500,200 T1100,200 T1700,200 T2300,200"
+            vector-effect="non-scaling-stroke"
+          />
+        </g>
+        <g class="wavy-line-2">
+          <path
+            class="wavy-line"
+            d="M-50,540 Q300,480 650,540 T1350,540 T2050,540"
+            vector-effect="non-scaling-stroke"
+          />
+        </g>
+        <g class="wavy-line-3">
+          <path
+            class="wavy-line"
+            d="M-80,810 Q250,750 580,810 T1280,810 T1980,810"
+            vector-effect="non-scaling-stroke"
+          />
+        </g>
+      </svg>
+      <div class="floating-icons">
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128"
+            alt="LinkedIn"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=slack.com&sz=128"
+            alt="Slack"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=outlook.com&sz=128"
+            alt="Outlook"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=discord.com&sz=128"
+            alt="Discord"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=teams.live.com&sz=128"
+            alt="Microsoft Teams"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=whatsapp.com&sz=128"
+            alt="WhatsApp"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=reddit.com&sz=128"
+            alt="Twitter"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=github.com&sz=128"
+            alt="GitHub"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=telegram.org&sz=128"
+            alt="Telegram"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=zoom.us&sz=128"
+            alt="Zoom"
+          />
+        </div>
+        <div class="floating-icon">
+          <img
+            src="https://www.google.com/s2/favicons?domain=intercom.com&sz=128"
+            alt="Intercom"
+          />
+        </div>
+      </div>
+      <div>
+        <h1>
+          <span class="highlight">One place</span> to see what matters across
+          <span class="capsule-wrapper">
+            <span class="capsule active" style="opacity: 1">Slack</span>
+          </span>
+        </h1>
+
+        <p class="subtext">
+          Connect your
+          <span class="highlight-secondary">communication</span> tools. We
+          reduce the noise and
+          <span class="highlight-secondary">highlight</span>
+          what truly needs your
+          <span class="highlight-secondary">attention</span>.
+        </p>
+
+        <div class="cta">
+          <button
+            data-tally-open="VLjBAj"
+            data-tally-emoji-text="👋"
+            data-tally-emoji-animation="wave"
+          >
+            <span class="text">Join the waitlist</span>
+          </button>
+          <button id="show-video-btn" class="secondary">
+            See how it works
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="video-modal" id="video-modal">
+      <div class="video-modal-content">
+        <button class="video-modal-close" id="close-video-btn"></button>
+        <video controls>
+          <source src="src/demo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <script async src="https://tally.so/widgets/embed.js"></script>
+    <script>
+      const channels = [
+        "Slack",
+        "Email",
+        "Discord",
+        "Telegram",
+        "Teams",
+        "WhatsApp",
+        "Intercom",
+      ];
+
+      const wrapper = document.querySelector(".capsule-wrapper");
+      let index = 0;
+
+      setInterval(() => {
+        const current = wrapper.querySelector(".capsule.active");
+        current.classList.remove("active");
+        current.classList.add("exit");
+
+        index = (index + 1) % channels.length;
+
+        const next = document.createElement("span");
+        next.className = "capsule";
+        next.textContent = channels[index];
+        wrapper.appendChild(next);
+
+        requestAnimationFrame(() => {
+          next.classList.add("active");
+        });
+
+        setTimeout(() => {
+          current.remove();
+        }, 600);
+      }, 1600);
+
+      const videoModal = document.getElementById("video-modal");
+      const showVideoBtn = document.getElementById("show-video-btn");
+      const closeVideoBtn = document.getElementById("close-video-btn");
+      const video = videoModal.querySelector("video");
+
+      showVideoBtn.addEventListener("click", () => {
+        videoModal.classList.add("active");
+        video.play();
+      });
+
+      closeVideoBtn.addEventListener("click", () => {
+        videoModal.classList.remove("active");
+        video.pause();
+        video.currentTime = 0;
+      });
+
+      videoModal.addEventListener("click", (e) => {
+        if (e.target === videoModal) {
+          videoModal.classList.remove("active");
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && videoModal.classList.contains("active")) {
+          videoModal.classList.remove("active");
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    </script>
+  </body>
+</html>
